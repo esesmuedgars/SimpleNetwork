@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">AndroidNetworkPropApp</string>
+    <string name="app_name">Network Information</string>
+    <string name="requestIP">Find out</string>
+    <string name="IPLabel">Your IP:</string>
+    <string name="detailsButton">More</string>
+    <string name="noIP">Unknown</string>
+    <string name="setName">Set name</string>
 </resources>

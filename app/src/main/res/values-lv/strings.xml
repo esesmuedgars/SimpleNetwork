@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pieslēguma Informācija</string>
+    <string name="requestIP">Uzzini</string>
+    <string name="IPLabel">Tavs IP:</string>
+    <string name="detailsButton">Vairāk</string>
+    <string name="noIP">Nezināms</string>
+    <string name="setName">Nosaukt</string>
+</resources>
