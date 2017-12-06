@@ -49,6 +49,12 @@ public class MainActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adjustDisplay();
+    }
+
     private void updateIP() {
         new GetIPTask(MainActivity.this).execute();
     }
@@ -57,6 +63,7 @@ public class MainActivity extends Activity {
         IPdisplay.setText(preferences.getString(ip, ip));
     }
 
+    // TODO: Remove
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }

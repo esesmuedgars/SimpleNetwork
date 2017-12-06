@@ -6,4 +6,9 @@
     <string name="detailsButton">Vairāk</string>
     <string name="noIP">Nezināms</string>
     <string name="setName">Nosaukt</string>
+    <string name="startTest">Sākt ātruma testu</string>
+    <string name="editHint">Nosauc patreizējo IP</string>
+    <string name="emptyCoordinatesLabel">Koordinatas nav atrastas</string>
+    <string name="coordinatesLabel">Platuma: %f, garuma: %f grādi</string>
+    <string name="google_maps_key">AIzaSyBpfmGnN8xI2lFqsnPVg7vyGX0ywrV8CoE</string>
 </resources>

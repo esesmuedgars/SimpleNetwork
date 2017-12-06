@@ -5,4 +5,9 @@
     <string name="detailsButton">More</string>
     <string name="noIP">Unknown</string>
     <string name="setName">Set name</string>
+    <string name="startTest">Start speed test</string>
+    <string name="editHint">Name current IP</string>
+    <string name="emptyCoordinatesLabel">Coordinates are missing</string>
+    <string name="coordinatesLabel">Latitude: %f, longitude: %f degrees</string>
+    <string name="google_maps_key">AIzaSyBpfmGnN8xI2lFqsnPVg7vyGX0ywrV8CoE</string>
 </resources>
