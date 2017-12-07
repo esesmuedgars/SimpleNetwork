@@ -32,6 +32,8 @@
 
         <activity android:name=".DetailsActivity" />
 
+        <service android:name=".WorkService" />
+
         <uses-library android:name="com.google.android.maps" />
     </application>
 

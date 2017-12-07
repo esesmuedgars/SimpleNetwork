@@ -11,4 +11,6 @@
     <string name="emptyCoordinatesLabel">Koordinatas nav atrastas</string>
     <string name="coordinatesLabel">Platuma: %f, garuma: %f grādi</string>
     <string name="google_maps_key">AIzaSyBpfmGnN8xI2lFqsnPVg7vyGX0ywrV8CoE</string>
+    <string name="googlePlayUnavailable">Google Play Store nav pieejams</string>
+    <string name="markerName">IP avots</string>
 </resources>

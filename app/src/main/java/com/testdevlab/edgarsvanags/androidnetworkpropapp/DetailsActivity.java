@@ -1,14 +1,16 @@
 package com.testdevlab.edgarsvanags.androidnetworkpropapp;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Pair;
 import android.view.View;
 import android.widget.TextView;
@@ -19,9 +21,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -44,6 +44,7 @@ public class DetailsActivity extends Activity implements OnMapReadyCallback {
     SharedPreferences preferences;
     TextView editText;
     Pair<Double, Double> coordinates;
+    double rate;
 
     private static final int ERROR_DIALOG_REQUEST = 9001;
 
@@ -82,15 +83,10 @@ public class DetailsActivity extends Activity implements OnMapReadyCallback {
         findViewById(R.id.startTest).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: start speed test
-                showMessage("Speed test!");
+                Intent intent = new Intent(DetailsActivity.this, WorkService.class);
+                startService(intent);
             }
         });
-
-        if (isServicesAvailable()) {
-            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
-        }
     }
 
     @Override
@@ -111,34 +107,57 @@ public class DetailsActivity extends Activity implements OnMapReadyCallback {
         isServicesAvailable();
     }
 
-    // TODO: Remove showMessage() method
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
-    boolean isServicesAvailable() {
+    void isServicesAvailable() {
         int available = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(DetailsActivity.this);
         if (available == ConnectionResult.SUCCESS) {
-            showMessage("SUCCESS");
-            return true;
+            MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
         } else if (GoogleApiAvailability.getInstance().isUserResolvableError(available)) {
             Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(DetailsActivity.this, available, ERROR_DIALOG_REQUEST);
             dialog.show();
         } else {
-            showMessage("Google Play Store is NOT available");
+            showMessage(getString(R.string.googlePlayUnavailable));
         }
-        return false;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        if (coordinates != null) {
-            LatLng currentIPPosition = new LatLng(coordinates.first, coordinates.second);
-            googleMap.addMarker(new MarkerOptions().position(currentIPPosition).title("IP source"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentIPPosition));
-        } else {
-            onMapReady(googleMap);
+        LatLng currentIPPosition = new LatLng(coordinates.first, coordinates.second);
+        googleMap.addMarker(new MarkerOptions().position(currentIPPosition).title(getString(R.string.markerName)));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(currentIPPosition));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
+        manager.registerReceiver(receiver, new IntentFilter(WorkService.MESSAGE_ACTION));
+    }
+
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @SuppressLint("DefaultLocale")
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent != null) {
+                if (intent.hasExtra("dataTransfer") || rate == 0) {
+                    System.out.println("BroadcastReceived");
+                    rate = intent.getDoubleExtra("dataTransfer", -1);
+                    showMessage(String.format("%f MBps", rate));
+                    System.out.println(String.format("%f MBps", rate));
+                }
+            }
         }
+    };
+
+    @Override
+    protected void onStop() {
+        LocalBroadcastManager manager = LocalBroadcastManager.getInstance(this);
+        manager.unregisterReceiver(receiver);
+        super.onStop();
     }
 
     static class GetCoordinatesTask extends AsyncTask<Void, Void, Pair<Double, Double>> {
