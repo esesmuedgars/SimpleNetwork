@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="colorCompactPrimary">#FE7569</color>
+    <color name="colorCompactPrimaryDark">#FE7569</color>
+    <color name="colorCompactAccent">#FE7569</color>
+    <color name="button_color">#E5E5E5</color>
 </resources>
