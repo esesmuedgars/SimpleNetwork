@@ -61,12 +61,6 @@ public class WorkService extends IntentService {
 
             long delta = endTime - startTime;
             double speed = 100/(((double) delta)/1000);
-            System.out.println("End " + endTime);
-            System.out.println("Start " + startTime);
-            System.out.println("> " + (endTime - startTime));
-            System.out.println("-> " + ((endTime - startTime)/1000));
-            System.out.println("--> " + (100/((endTime - startTime)/1000)));
-            System.out.println(speed);
             sendResult(speed);
 
             context.unregisterReceiver(this);

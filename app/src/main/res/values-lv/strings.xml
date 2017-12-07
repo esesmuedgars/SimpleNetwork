@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Pieslēguma Informācija</string>
-    <string name="requestIP">Uzzini</string>
+    <string name="requestIP">Uzzini IP</string>
     <string name="IPLabel">Tavs IP:</string>
     <string name="detailsButton">Vairāk</string>
     <string name="noIP">Nezināms</string>
@@ -13,4 +13,7 @@
     <string name="google_maps_key">AIzaSyBpfmGnN8xI2lFqsnPVg7vyGX0ywrV8CoE</string>
     <string name="googlePlayUnavailable">Google Play Store nav pieejams</string>
     <string name="markerName">IP avots</string>
+    <string name="rateLabel">Pieslēguma lejuplādes ātrums:</string>
+    <string name="rateLabelSet">%s MBps</string>
+    <string name="share">Sūtīt</string>
 </resources>

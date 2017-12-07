@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Network Information</string>
-    <string name="requestIP">Find out</string>
+    <string name="requestIP">Find out IP</string>
     <string name="IPLabel">Your IP:</string>
     <string name="detailsButton">More</string>
     <string name="noIP">Unknown</string>
@@ -12,4 +12,7 @@
     <string name="google_maps_key">AIzaSyBpfmGnN8xI2lFqsnPVg7vyGX0ywrV8CoE</string>
     <string name="googlePlayUnavailable">Google Play Store is not available</string>
     <string name="markerName">IP source</string>
+    <string name="rateLabel">Data transfer rate:</string>
+    <string name="rateLabelSet">%s MBps</string>
+    <string name="share">Share</string>
 </resources>

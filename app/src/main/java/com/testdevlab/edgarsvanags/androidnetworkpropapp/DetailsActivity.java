@@ -144,10 +144,11 @@ public class DetailsActivity extends Activity implements OnMapReadyCallback {
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 if (intent.hasExtra("dataTransfer") || rate == 0) {
-                    System.out.println("BroadcastReceived");
                     rate = intent.getDoubleExtra("dataTransfer", -1);
-                    showMessage(String.format("%f MBps", rate));
-                    System.out.println(String.format("%f MBps", rate));
+                    String roundedRate = String.format("%.6f", rate);
+                    String rateResult = String.format(getString(R.string.rateLabelSet), roundedRate);
+                    showMessage(rateResult);
+                    preferences.edit().putString("rateLabel", rateResult).apply();
                 }
             }
         }

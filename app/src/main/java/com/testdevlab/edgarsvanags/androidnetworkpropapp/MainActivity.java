@@ -1,6 +1,7 @@
 package com.testdevlab.edgarsvanags.androidnetworkpropapp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
     public static final int REQUEST_DETAILS = 82;
 
     TextView IPdisplay;
+    TextView rateDisplay;
     SharedPreferences preferences;
     String ip;
 
@@ -31,6 +33,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         IPdisplay = findViewById(R.id.IPdisplay);
+        rateDisplay = findViewById(R.id.rateLabel);
+        rateDisplay.setText(String.format(getString(R.string.rateLabelSet), "n/a"));
         preferences = getSharedPreferences("save", MODE_PRIVATE);
         updateIP();
 
@@ -47,6 +51,27 @@ public class MainActivity extends Activity {
                 updateIP();
             }
         });
+
+        findViewById(R.id.shareButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                shareResult();
+            }
+        });
+    }
+
+    private void shareResult() {
+        String name = preferences.getString(ip, "Unnamed");
+
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        if (!name.equals("Unnamed")) {
+            intent.putExtra(Intent.EXTRA_TEXT, String.format("Address: %s, Name: %s", ip, name));
+        } else {
+            intent.putExtra(Intent.EXTRA_TEXT, String.format("Address: %s", ip));
+        }
+        intent.setType("text/plain");
+        startActivity(intent);
     }
 
     @Override
@@ -61,11 +86,7 @@ public class MainActivity extends Activity {
 
     void adjustDisplay() {
         IPdisplay.setText(preferences.getString(ip, ip));
-    }
-
-    // TODO: Remove
-    public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        rateDisplay.setText(preferences.getString("rateLabel", getString(R.string.rateLabel)));
     }
 
     static class GetIPTask extends AsyncTask<Void, Void, String> {
