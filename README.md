@@ -1,4 +1,4 @@
-# Network Information Application
+# Simple Network application
 
 * Using [Ipify](https://api.ipify.org) for retrieving users IP address;
 * Using [Freegeoip](https://freegeoip.net) based on users IP address, for retrieving origin locations coordinates;
